@@ -1,7 +1,10 @@
 require("dotenv").config();
 const { spawn } = require("child_process");
 import { mkdirSync, existsSync, writeFileSync, readdirSync } from "fs";
-import { downloadInputForYearAndDay, getPuzzleDescription } from "./utils/aoc-actions";
+import {
+  downloadInputForYearAndDay,
+  getPuzzleDescription,
+} from "./utils/aoc-actions";
 import { cp } from "shelljs";
 
 const languageMappings = {
@@ -24,7 +27,13 @@ const createFromTemplate = async () => {
     console.log(`Creating challenge to ${path} from template...`);
     mkdirSync(`challenges/${year}/${day}`, { recursive: true });
     //Copy template
-    cp("-rf", `template/${lang ? languageMappings[lang as keyof typeof languageMappings] : "ts"}/*`, path);
+    cp(
+      "-rf",
+      `template/${
+        lang ? languageMappings[lang as keyof typeof languageMappings] : "ts"
+      }/*`,
+      path
+    );
   }
 
   if (!existsSync(`${path}/input.txt`)) {
@@ -40,11 +49,12 @@ if (action === "create") {
   createFromTemplate();
 }
 
-
 if (action === "run") {
   const folder = `challenges/${year}/${day}/`;
   const filesInFolder = readdirSync(folder);
-  const extension = filesInFolder.find((e) => e.includes("index"))?.split(".")[1] as Language;
+  const extension = filesInFolder
+    .find((e) => e.includes("index"))
+    ?.split(".")[1] as Language;
   const file = `index.${extension}`;
   if (existsSync(folder + file)) {
     switch (extension) {
@@ -57,10 +67,18 @@ if (action === "run") {
         });
         break;
       default:
-        spawn("nodemon", ["-x", "ts-node", `challenges/${year}/${day}/index.ts ${year} ${day}`], {
-          stdio: "inherit",
-          shell: true,
-        });
+        spawn(
+          "nodemon",
+          [
+            "-x",
+            "ts-node",
+            `challenges/${year}/${day}/index.ts ${year} ${day}`,
+          ],
+          {
+            stdio: "inherit",
+            shell: true,
+          }
+        );
     }
   }
 }
