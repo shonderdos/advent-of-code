@@ -17,6 +17,9 @@ const part1 = () => {
     pos = [x, y];
   };
   const checkTopView = ([x, y]: [number, number]) => {
+    // for (let pos of Array(x)) {
+    //   console.log(pos);
+    // }
     return Array.from(Array(x).keys()).every((posToCheck) => {
       return grid[posToCheck][y] < grid[x][y];
     });
@@ -129,8 +132,7 @@ const part2 = () => {
       );
     })
   );
-
-  console.log(Math.max(...result.map((x) => Math.max(...x))));
+  return Math.max(...result.map((x) => Math.max(...x)));
 };
 
 console.log(part1());
