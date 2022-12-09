@@ -5,12 +5,10 @@ class Knot {
   y: number;
   x: number;
   visited = new Set();
-  name: string;
 
-  constructor(y: number, x: number, name: string) {
+  constructor(y: number, x: number) {
     this.y = y;
     this.x = x;
-    this.name = name;
     this.addNewPos();
   }
 
@@ -52,22 +50,15 @@ class Grid {
   }
 
   moveT() {
-    for (let i = 0; i + 1 < this.knots.length; i++) {
-      const h = this.knots[i];
-      const t = this.knots[i + 1];
+    for (let i = 1; i < this.knots.length; i++) {
+      const h = this.knots[i - 1];
+      const t = this.knots[i];
 
       const distance = Math.hypot(h.y - t.y, h.x - t.x);
 
       if (distance > 2) {
-        let sequence = [];
-        h.x < t.x
-          ? sequence.push(t.move.bind(t, 0, -1))
-          : sequence.push(t.move.bind(t, 0, 1));
-        h.y < t.y
-          ? sequence.push(t.move.bind(t, -1, 0))
-          : sequence.push(t.move.bind(t, 1, 0));
-
-        sequence.forEach((i) => i());
+        h.x < t.x ? t.move(0, -1) : t.move(0, 1);
+        h.y < t.y ? t.move(-1, 0) : t.move(1, 0);
       } else {
         if (Math.abs(h.x - t.x) > 1) {
           h.x < t.x ? t.move(0, -1) : t.move(0, 1);
@@ -91,10 +82,9 @@ const input = getInput("2022", "9")
   });
 
 const part1 = () => {
-  let H = new Knot(0, 0, "Head");
-  let T = new Knot(0, 0, "Tail");
+  let H = new Knot(0, 0);
+  let T = new Knot(0, 0);
   let grid = new Grid([H, T]);
-
   input.forEach((i) => {
     grid.instructions(i);
   });
@@ -103,9 +93,7 @@ const part1 = () => {
 };
 
 const part2 = () => {
-  const array = Array.from(Array(10).keys()).map(
-    (_, index) => new Knot(0, 0, String(index))
-  );
+  const array = Array.from(Array(10).keys()).map((_, index) => new Knot(0, 0));
 
   const grid = new Grid(array);
 
