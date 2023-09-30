@@ -4,17 +4,16 @@ import {
   downloadInputForYearAndDay,
   getPuzzleDescription,
 } from "../aoc-actions";
-import { Language } from "../language-mappings";
 import { prefixDay } from "../prefix-day";
 
-export const create = async (year: string, day: string, lang: Language) => {
+export const create = async (year: string, day: string) => {
   const prefixedDay = prefixDay(day);
   let path = `./challenges/${year}/${prefixedDay}`;
   if (!existsSync(path)) {
     console.log(`Creating challenge to ${path} from template...`);
     mkdirSync(`challenges/${year}/${prefixedDay}`, { recursive: true });
     //Copy template
-    cp("-rf", `template/${lang}/*`, path);
+    cp("-rf", `template/*`, path);
   }
 
   if (!existsSync(`${path}/input.txt`)) {

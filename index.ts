@@ -1,12 +1,8 @@
 import { create, run } from "./utils/actions";
-import { Language, languageMappings } from "./utils/language-mappings";
-let [, , action, year, day, lang] = process.argv;
-const isLang = (lang: string): lang is Language => {
-  return Object.keys(languageMappings).includes(lang);
-};
+let [, , action, year, day] = process.argv;
 switch (action) {
   case "create":
-    create(year, day, isLang(lang) ? lang : "ts");
+    create(year, day);
     break;
   case "run":
     run(year, day);
