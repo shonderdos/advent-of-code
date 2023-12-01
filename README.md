@@ -1,4 +1,4 @@
-### ~Hours lost~ Time spend well on AOC 
+### ~Hours lost~ Time spent well on AOC 
 [![wakatime](https://wakatime.com/badge/user/3ceac483-5f34-4134-842f-d9ce7386154b/project/1768330d-e0ad-4e45-ac04-c6e362a751d9.svg)](https://wakatime.com/badge/user/3ceac483-5f34-4134-842f-d9ce7386154b/project/1768330d-e0ad-4e45-ac04-c6e362a751d9)
 
 # Requirements
