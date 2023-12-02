@@ -23,26 +23,24 @@ const rules = {
   blue: 14,
 };
 const part1 = () => {
-  // regex remove everything before :
-  return data.reduce((acceptableGames, game, index) => {
-    return game.every((hands) => {
-      return hands.every((hand) => {
-        const [amount, color] = hand;
-        return rules[color] >= amount;
-      });
-    })
-      ? acceptableGames + (index + 1)
-      : acceptableGames;
-  }, 0);
+  return data.reduce(
+    (acceptableGames, game, index) =>
+      game.every((hands) =>
+        hands.every(([amount, color]) => rules[color] >= amount)
+      )
+        ? acceptableGames + (index + 1)
+        : acceptableGames,
+    0
+  );
 };
 
 const part2 = () => {
   return data.reduce((sum, game) => {
     const lowestNumsObj = game.flat().reduce(
-      (gameSum, hands) => {
-        const [amount, color] = hands;
-        return { ...gameSum, [color]: Math.max(gameSum[color], amount) };
-      },
+      (gameSum, [amount, color]) => ({
+        ...gameSum,
+        [color]: Math.max(gameSum[color], amount),
+      }),
       { red: 0, green: 0, blue: 0 }
     );
     return (
